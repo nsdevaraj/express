@@ -10,8 +10,8 @@ app.use(cors());
 
 //DYNAMIC VARIABLES FROM THE DASHBOARD
 var stopRequest=false;
-var dashboardname={username:"jon",name:"Sales Dashboard",lasttime:"August 01, 2016",title1:"Revenue and Profit",title2:"Margin by Region"};
-var maxmininfo={message1:"Product A has the highest Revenue and Product B has the lowest Revenue.",message2:" Region A has the highest profit and Region B has the lowest Profit."}
+var dashboardname={username:"",name:"Retail Analytics",lasttime:"Sep 2016",title1:"Location View",title2:"Sales Group view"};
+
 // Creates the website server on the port #
 server.listen(port, function () {
   console.log('Server listening at port %d', port);
@@ -19,11 +19,6 @@ server.listen(port, function () {
 
 
 io.on('connection', function(socket){
-  socket.on('maxmininfo', function(data){
-    var info=data.split(';')
-    maxmininfo.message1=info[0];
-    maxmininfo.message2=info[1];
-  });
 
   socket.on('userdashboardinfo', function(data){
     var info=data.split(';')
@@ -103,28 +98,60 @@ app.post('/api/echo', function(req, res){
         cardContent = "Welcome "+dashboardname.username+",you are looking at the "+dashboardname.name+" from "+dashboardname.lasttime;
 		     io.emit('open', outputSpeechText);
       }
+
+
+      else if(jsonData.request.intent.name == "View"){
+        if(jsonData.request.intent.slots.showview.value){
+          outputSpeechText = "Showing the view of "+jsonData.request.intent.slots.showview.value;
+          cardContent = "Showing the view of "+jsonData.request.intent.slots.showview.value;
+          io.emit('view',jsonData.request.intent.slots.showview.value);
+        }else{
+          outputSpeechText = "Sorry! Please try again with proper command";
+          cardContent ="Sorry! Please try again with proper command";
+        }
+      }
+      else if(jsonData.request.intent.name == "Zoom"){
+        if(jsonData.request.intent.slots.zoomlevel.value){
+          outputSpeechText = "Showing the zoom level of "+jsonData.request.intent.slots.zoomlevel.value;
+          cardContent = "Showing the zoom level of "+jsonData.request.intent.slots.zoomlevel.value;
+          io.emit('view',jsonData.request.intent.slots.showview);
+        }else{
+          outputSpeechText = "Sorry! Please try again with proper command";
+          cardContent ="Sorry! Please try again with proper command";
+        }
+
+      }
+      else if(jsonData.request.intent.name == "Kpi"){
+          if(jsonData.request.intent.slots.kpisummary.value){
+            outputSpeechText = "Showing the kpi summary of "+jsonData.request.intent.slots.kpisummary.value;
+            cardContent = "Showing the kpi summary view of "+jsonData.request.intent.slots.kpisummary.value;
+            io.emit('kpi',jsonData.request.intent.slots.kpisummary.value);
+        }
+      }
+      else if(jsonData.request.intent.name == "Locationfilter"){
+        if(jsonData.request.intent.slots.locationtype.value){
+          outputSpeechText = "Showing only the location with "+jsonData.request.intent.slots.locationtype.value+" sales";
+          cardContent = "Showing only the location with "+jsonData.request.intent.slots.locationtype.value+" sales";
+          io.emit('locationfilter',jsonData.request.intent.slots.locationtype.value);
+        }
+        else{
+          outputSpeechText = "Sorry! Please try again with proper command";
+          cardContent ="Sorry! Please try again with proper command";
+        }
+      }
+
       //s
       else if(jsonData.request.intent.name == "Filter"){
-        if(jsonData.request.intent.slots.Dim.value=="country"){
-          outputSpeechText = "Displaying the"+jsonData.request.intent.slots.Dim.value+" for "+jsonData.request.intent.slots.Value.value;
-          cardContent = "Displaying the"+jsonData.request.intent.slots.Dim.value+" for "+jsonData.request.intent.slots.Value.value;
-        }else if(jsonData.request.intent.slots.Dim.value=="fuelcategory"){
-          outputSpeechText = "Displaying the"+jsonData.request.intent.slots.Dim.value+" for "+jsonData.request.intent.slots.Value.value;
-          cardContent = "Displaying the"+jsonData.request.intent.slots.Dim.value+" for "+jsonData.request.intent.slots.Value.value;
+        if(jsonData.request.intent.slots.Measurelist.value && jsonData.request.intent.slots.MeasureValue.value){
+          outputSpeechText = "Displaying the"+jsonData.request.intent.slots.Measurelist.value+" for "+jsonData.request.intent.slots.MeasureValue.value;
+          cardContent = "Displaying the"+jsonData.request.intent.slots.Measurelist.value+" for "+jsonData.request.intent.slots.MeasureValue.value;
+          io.emit('filter',jsonData.request.intent.slots.Measurelist.value+':'+jsonData.request.intent.slots.MeasureValue.value);
+        }else{
+          outputSpeechText = "Sorry! Please try again with proper command";
+          cardContent ="Sorry! Please try again with proper command";
         }
-        io.emit('filter',jsonData.request.intent.slots.Dim.value+':'+jsonData.request.intent.slots.Value.value);
       }
-      else if(jsonData.request.intent.name == "Measure"){
-          if(jsonData.request.intent.slots.Measurelist.value=="numberofrecords"){
-            outputSpeechText = "Displaying the"+jsonData.request.intent.slots.Measurelist.value+" for"+jsonData.request.intent.slots.Timeperiod.value;
-            cardContent = "Displaying the"+jsonData.request.intent.slots.Measurelist.value+" for"+jsonData.request.intent.slots.Timeperiod.value;
-          }
-          else if(jsonData.request.intent.slots.Measurelist.value=="fuelconsumption"){
-            outputSpeechText =  "Displaying the"+jsonData.request.intent.slots.Measurelist.value+" for"+jsonData.request.intent.slots.Timeperiod.value;
-            cardContent = "Displaying the"+jsonData.request.intent.slots.Measurelist.value+" for"+jsonData.request.intent.slots.Timeperiod.value;
-          }
-            io.emit('measure',jsonData.request.intent.slots.Measurelist.value+':'+jsonData.request.intent.slots.Timeperiod.value);
-      }
+
       else if (jsonData.request.intent.name == "ExplainDashboard")
       {
         // The Intent "TurnOff" was successfully called
