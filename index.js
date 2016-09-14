@@ -105,9 +105,6 @@ app.post('/api/echo', function(req, res){
           outputSpeechText = "Showing the view of "+jsonData.request.intent.slots.showview.value;
           cardContent = "Showing the view of "+jsonData.request.intent.slots.showview.value;
           io.emit('view',jsonData.request.intent.slots.showview.value);
-        }else{
-          outputSpeechText = "Sorry! Please try again with proper command";
-          cardContent ="Sorry! Please try again with proper command";
         }
       }
       else if(jsonData.request.intent.name == "Zoom"){
@@ -115,11 +112,7 @@ app.post('/api/echo', function(req, res){
           outputSpeechText = "Showing the zoom level of "+jsonData.request.intent.slots.zoomlevel.value;
           cardContent = "Showing the zoom level of "+jsonData.request.intent.slots.zoomlevel.value;
           io.emit('zoom',jsonData.request.intent.slots.zoomlevel.value);
-        }else{
-          outputSpeechText = "Sorry! Please try again with proper command";
-          cardContent ="Sorry! Please try again with proper command";
         }
-
       }
       else if(jsonData.request.intent.name == "Kpi"){
           if(jsonData.request.intent.slots.kpisummary.value){
@@ -134,10 +127,6 @@ app.post('/api/echo', function(req, res){
           cardContent = "Showing only the location with "+jsonData.request.intent.slots.locationtype.value+" sales";
           io.emit('locationfilter',jsonData.request.intent.slots.locationtype.value);
         }
-        else{
-          outputSpeechText = "Sorry! Please try again with proper command";
-          cardContent ="Sorry! Please try again with proper command";
-        }
       }
 
       //s
@@ -146,9 +135,6 @@ app.post('/api/echo', function(req, res){
           outputSpeechText = "Displaying the"+jsonData.request.intent.slots.Measurelist.value+" for "+jsonData.request.intent.slots.MeasureValue.value;
           cardContent = "Displaying the"+jsonData.request.intent.slots.Measurelist.value+" for "+jsonData.request.intent.slots.MeasureValue.value;
           io.emit('filter',jsonData.request.intent.slots.Measurelist.value+':'+jsonData.request.intent.slots.MeasureValue.value);
-        }else{
-          outputSpeechText = "Sorry! Please try again with proper command";
-          cardContent ="Sorry! Please try again with proper command";
         }
       }
 
@@ -162,8 +148,8 @@ app.post('/api/echo', function(req, res){
       else if (jsonData.request.intent.name == "Whatdowesee")
       {
         // The Intent "TurnOff" was successfully called
-        outputSpeechText =  maxmininfo.message1+maxmininfo.message2;
-        cardContent =  maxmininfo.message1+maxmininfo.message2;
+        outputSpeechText =  'We are looking at the sales channel and sales division';
+        cardContent =  'We are looking at the sales channel and sales division';
 		    io.emit('Whatdowesee', outputSpeechText);
       }
       else if (jsonData.request.intent.name == "thankyou")
