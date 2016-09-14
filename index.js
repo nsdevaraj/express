@@ -114,7 +114,7 @@ app.post('/api/echo', function(req, res){
         if(jsonData.request.intent.slots.zoomlevel.value){
           outputSpeechText = "Showing the zoom level of "+jsonData.request.intent.slots.zoomlevel.value;
           cardContent = "Showing the zoom level of "+jsonData.request.intent.slots.zoomlevel.value;
-          io.emit('zoom',jsonData.request.intent.slots.zoomlevel);
+          io.emit('zoom',jsonData.request.intent.slots.zoomlevel.value);
         }else{
           outputSpeechText = "Sorry! Please try again with proper command";
           cardContent ="Sorry! Please try again with proper command";
