@@ -212,7 +212,7 @@ app.post('/api/echo', function(req, res){
               "text": "Say a command"
             }
           },
-          "shouldEndSession": stopRequest
+          "shouldEndSession": false
         }
       };
     }
