@@ -101,41 +101,32 @@ app.post('/api/echo', function(req, res){
 
 
       else if(jsonData.request.intent.name == "View"){
-        if(jsonData.request.intent.slots.showview.value){
           outputSpeechText = "Showing the view of "+jsonData.request.intent.slots.showview.value;
           cardContent = "Showing the view of "+jsonData.request.intent.slots.showview.value;
           io.emit('view',jsonData.request.intent.slots.showview.value);
-        }
       }
       else if(jsonData.request.intent.name == "Zoom"){
-        if(jsonData.request.intent.slots.zoomlevel.value){
           outputSpeechText = "Showing the zoom level of "+jsonData.request.intent.slots.zoomlevel.value;
           cardContent = "Showing the zoom level of "+jsonData.request.intent.slots.zoomlevel.value;
           io.emit('zoom',jsonData.request.intent.slots.zoomlevel.value);
-        }
       }
       else if(jsonData.request.intent.name == "Kpi"){
-          if(jsonData.request.intent.slots.kpisummary.value){
             outputSpeechText = "Showing the kpi summary of "+jsonData.request.intent.slots.kpisummary.value;
             cardContent = "Showing the kpi summary view of "+jsonData.request.intent.slots.kpisummary.value;
             io.emit('kpi',jsonData.request.intent.slots.kpisummary.value);
-        }
       }
       else if(jsonData.request.intent.name == "Locationfilter"){
-        if(jsonData.request.intent.slots.locationtype.value){
           outputSpeechText = "Showing only the location with "+jsonData.request.intent.slots.locationtype.value+" sales";
           cardContent = "Showing only the location with "+jsonData.request.intent.slots.locationtype.value+" sales";
           io.emit('locationfilter',jsonData.request.intent.slots.locationtype.value);
-        }
       }
 
       //s
       else if(jsonData.request.intent.name == "Filter"){
-        if(jsonData.request.intent.slots.Measurelist.value && jsonData.request.intent.slots.MeasureValue.value){
           outputSpeechText = "Displaying the"+jsonData.request.intent.slots.Measurelist.value+" for "+jsonData.request.intent.slots.MeasureValue.value;
           cardContent = "Displaying the"+jsonData.request.intent.slots.Measurelist.value+" for "+jsonData.request.intent.slots.MeasureValue.value;
           io.emit('filter',jsonData.request.intent.slots.Measurelist.value+':'+jsonData.request.intent.slots.MeasureValue.value);
-        }
+
       }
 
       else if (jsonData.request.intent.name == "ExplainDashboard")
@@ -148,8 +139,8 @@ app.post('/api/echo', function(req, res){
       else if (jsonData.request.intent.name == "Whatdowesee")
       {
         // The Intent "TurnOff" was successfully called
-        outputSpeechText =  'We are looking at the sales channel and sales division';
-        cardContent =  'We are looking at the sales channel and sales division';
+        outputSpeechText =  'We are looking at the all sales channel and all sales division';
+        cardContent =  'We are looking at the all sales channel and all sales division';
 		    io.emit('Whatdowesee', outputSpeechText);
       }
       else if (jsonData.request.intent.name == "thankyou")
