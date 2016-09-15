@@ -171,8 +171,8 @@ app.post('/api/echo', function(req, res){
 
 
       function handlestopRequest(){
-        outputSpeechText =  "Thank you for visiting us!! Don't forget to look onto our VBX extensions";
-        cardContent =  "Thank you for visiting us!! Don't forget to look onto our VBX extensions";
+        outputSpeechText =  "Thank you for visiting us!! Dont forget to look onto our VBX extensions";
+        cardContent =  "Thank you for visiting us!! Dont forget to look onto our VBX extensions";
         stopRequest=true;
       }
 
