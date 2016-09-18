@@ -10,7 +10,7 @@ app.use(cors());
 
 //DYNAMIC VARIABLES FROM THE DASHBOARD
 var stopRequest=false;
-var dashboardname={username:"",name:"Retail Analytics",lasttime:"Sep 2016",title1:"Location View",title2:"Sales Group view"};
+var dashboardname={username:"",name:"Retail Analytics",lasttime:"September 2016",title1:"Location View",title2:"Sales Group view"};
 
 // Creates the website server on the port #
 server.listen(port, function () {
@@ -24,7 +24,7 @@ io.on('connection', function(socket){
     var info=data.split(';')
     dashboardname.username=info[0],
     dashboardname.name=info[1],
-    dashboardname.lasttime=info[2];
+    dashboardname.lasttime="September 2016";
     dashboardname.title1=info[3];
     dashboardname.title2=info[4];
   });
