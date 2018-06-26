@@ -2,6 +2,9 @@
 /* eslint-disable  no-console */
 
 const Alexa = require('ask-sdk-core');
+const express = require('express')
+const app = express()
+const server = require('http').createServer(app)
 const io = require('socket.io')(server);
 
 var dashboardname={username:"",name:"Retail Analytics",lasttime:"September 2016",title1:"Location View",title2:"Sales Group view"};
